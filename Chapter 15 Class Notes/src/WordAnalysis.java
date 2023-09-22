@@ -13,6 +13,15 @@ public class WordAnalysis
     public static void main(String[] args)
         throws FileNotFoundException
     {
+        // Read dictionary and novel
+        Set<String> dictionaryWords = readWords("Chapter 15 Class Notes/src/words");
+        Set<String> novelWords = readWords("Chapter 15 Class Notes/src/throughTheLookingGlass.txt");
+
+        for(String word: novelWords) {
+            if(!dictionaryWords.contains(word))
+                System.out.println(word);
+        }
+        System.out.println("Words in Novel: "+novelWords.size());
     }
 
     /**
@@ -25,6 +34,18 @@ public class WordAnalysis
     public static Set<String> readWords(String filename)
         throws FileNotFoundException
     {
-        return null;
+        Set<String> words = new HashSet<>();
+        //System.out.println(System.getProperty("user.dir"));
+        Scanner scan = new Scanner(new File(filename), "UTF-8");
+
+        // Use any character other than letters as delimeters
+        scan.useDelimiter("[^a-zA-Z]+");
+        
+        // Adding words to our set (Ignoring dupes)
+        while(scan.hasNext()){
+            words.add(scan.next().toLowerCase());
+        }
+        
+        return words;
     }
 }
