@@ -21,7 +21,15 @@ public class WordAnalysis
             if(!dictionaryWords.contains(word))
                 System.out.println(word);
         }
-        System.out.println("Words in Novel: "+novelWords.size());
+        System.out.println("Unique words in novel: "+novelWords.size());
+
+        Iterator<String> iterator = novelWords.iterator();
+        while (iterator.hasNext()){
+            if (iterator.next().length() <= 3)
+                iterator.remove();
+        }
+
+        System.out.println("Unique words in novel with more than 3 words: "+novelWords.size());
     }
 
     /**
