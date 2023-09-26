@@ -152,7 +152,7 @@ public class SudokuSolver {
         possibleNums.addAll(this.nums);
         
         for(int i = 1; i < 10; i++){
-            int sqr = (3*((int)(nextRow/3))) + (int)(nextCol/3);
+            int sqr = (3*((int)(nextCol/3))) + (int)(nextRow/3);
             if(this.rows.get(nextRow).contains(i) || this.cols.get(nextCol).contains(i) || this.squares.get(sqr).contains(i))
                 possibleNums.remove(i);
         }
@@ -161,23 +161,27 @@ public class SudokuSolver {
         if (possibleNums.isEmpty()) {
             return false;
         }
-        System.out.println(possibleNums);
+        //if(this.grid[0][0] == 3 && this.grid[0][1] == 1 && this.grid[0][2] == 9 && this.grid[0][3] == 6)
+            //System.out.println(possibleNums);
         // try each possible number
         for (Integer possibleNum : possibleNums) {
             // update the grid and all three corresponding sets with possibleNum
-            for (int row = nextRow; row < nextRow + 3; row++) {
-                for (int col = nextCol; col < nextCol + 3; col++) {
+            for (int row = nextRow; row < nextRow + 3 && row >= 0; row++) {
+                for (int col = nextCol; col < nextCol + 3 && col >= 0; col++) {
                     if (this.grid[row][col] == 0) {
+                        //if(row == 0 && col == 3){
+                            //System.out.println("\nWHERE SIX: " + possibleNums + "\n"+ this.rows.get(0) +"\n");
+                        //}
                         this.grid[row][col] = possibleNum;
-                        int sqr = (3*((int)(nextRow/3))) + (int)(nextCol/3);
+                        int sqr = (3*((int)(nextCol/3))) + (int)(nextRow/3);
                         int num = possibleNum.intValue();
                         this.rows.get(row).add(num);
                         this.cols.get(col).add(num);
                         this.squares.get(sqr).add(num);
-                        col = 99;
-                        row = 99;
+                        col = -100;
+                        row = -100;
 
-                        System.out.println(quickp());
+                        //quickp();
                     }
                 }
             }
@@ -187,18 +191,19 @@ public class SudokuSolver {
                 // the board is solved!
                 return true;
             } else {
-                System.out.println("WRONG: "+possibleNum.intValue());
-                for (int row = nextRow; row < nextRow + 3; row++) {
-                    for (int col = nextCol; col < nextCol + 3; col++) {
+                //if(this.grid[0][0] == 3 && this.grid[0][1] == 1 && this.grid[0][2] == 9 && this.grid[0][3] == 6)
+                    //System.out.println("WRONG: "+possibleNum.intValue());
+                for (int row = nextRow; row < nextRow + 3 && row >= 0; row++) {
+                    for (int col = nextCol; col < nextCol + 3 && col >= 0; col++) {
                         if (this.grid[row][col] == possibleNum) {
-                            int sqr = (3*((int)(nextRow/3))) + (int)(nextCol/3);
+                            int sqr = (3*((int)(nextCol/3))) + (int)(nextRow/3);
                             int num = possibleNum.intValue();
                             this.grid[row][col] = 0;
                             this.rows.get(row).remove(num);
                             this.cols.get(col).remove(num);
                             this.squares.get(sqr).remove(num);
-                            col = 99;
-                            row = 99;
+                            col = -100;
+                            row = -100;
                         }
                     }
                 }
@@ -222,18 +227,20 @@ public class SudokuSolver {
         return str;
     }
 
-    public String quickp() {
-        String str = "";
+    public void quickp() {
+        if (this.grid[0][0] == 3 && this.grid[0][1] == 1 && this.grid[0][2] == 9 && this.grid[0][3] == 6){
+            String str = "";
 
-        for (int[] row : grid) {
-            for (int val : row) {
-                str += val + "\t";
+            for (int[] row : grid) {
+                for (int val : row) {
+                 str += val + "\t";
+                }
+
+                str += "\n";
             }
 
-            str += "\n";
+            System.out.println(str);
         }
-
-        return str;
     }
 
     public static void main(String[] args) {
