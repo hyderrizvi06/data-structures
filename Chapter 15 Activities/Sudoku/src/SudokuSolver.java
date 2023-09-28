@@ -52,9 +52,9 @@ public class SudokuSolver {
             //System.out.println(row + "DUPE:");
             
             //row.clear();
-            System.out.println(this.rows.get(i));
+            //System.out.println(this.rows.get(i));
         }
-        System.out.println("///////");
+        //System.out.println("///////");
 
         //System.out.println(this.rows);
             
@@ -69,10 +69,10 @@ public class SudokuSolver {
                 col.add(grid[j][i]);
             }
             this.cols.add(col);
-            System.out.println(col);
+            //System.out.println(col);
             //col.clear();
         }
-        System.out.println("///////");
+        //System.out.println("///////");
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
             0 1 2
@@ -86,17 +86,15 @@ public class SudokuSolver {
             for(int k = 0; k < 7; k+=3){
                 Set<Integer> square = new HashSet<>();
                 for(int i = 0+k; i < 3+k; i++){
-                    
                     for(int j = 0+l; j < 3+l; j++){
                         square.add(grid[i][j]);
                         //System.out.println(""+i+", "+j);
-                    }
-                    
+                    }  
                 }
                 this.squares.add(square);
-                System.out.println(square);
+                //System.out.println(square);
                 //squares.clear();
-                System.out.println("NEW\n");
+                //System.out.println("NEW\n");
             }
         }
         // create a hash set for [1..9] (this.nums)
