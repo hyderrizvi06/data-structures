@@ -50,7 +50,7 @@ public class Gradebook
             {
                 Set<String> grades = gradeBook.keySet();
                 for(String grade: grades){
-                    System.out.println(grade+" has a "+gradeBook.get(grade));
+                    System.out.println(grade+": "+gradeBook.get(grade));
                 }
             } else
             {

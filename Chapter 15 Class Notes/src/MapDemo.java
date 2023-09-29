@@ -15,7 +15,7 @@ public class MapDemo
          * The first type is the type of the key. 
          * The second type is the type of the value.
          */
-
+        
          Map<String, Color> favColors = new HashMap<>();
 
          favColors.put("Hyder", Color.RED);
