@@ -26,7 +26,17 @@ public class LinkedList
     */
     public int size()
     {
-        . . .
+        int size = 0;
+        if(first != null)
+            size += sizeHelper(size+1, first.next);
+        return size;
+    }
+
+    public int sizeHelper(int cSize, Node cNode){
+        if(cNode.next != null){
+            cSize = sizeHelper(cSize+1, cNode.next);
+        }
+        return cSize;
     }
 
 
