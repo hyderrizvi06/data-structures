@@ -72,8 +72,6 @@ public class LinkedList
     }
 
 
-
-
     //Class Node
     //Node is static because it doesn't need access to anything in linked list 
     static class Node{
