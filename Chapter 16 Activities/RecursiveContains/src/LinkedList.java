@@ -41,12 +41,7 @@ public class LinkedList
     */
     public boolean contains(Object obj)
     {
-        if (first == null)
-            return false;
-        else if (first.data == obj) 
-            return true;
-        else
-            return containsHelper(obj, first);
+        return containsHelper(obj, first);
     }
 
     public boolean containsHelper(Object obj, Node cNode){

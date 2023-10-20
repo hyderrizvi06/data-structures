@@ -6,6 +6,9 @@ import java.util.NoSuchElementException;
 public class CircularArrayQueue
 {
     private Object[] elements;
+    private int head;
+    private int tail;
+    private int currentSize;
     //private data
 
 
@@ -13,6 +16,13 @@ public class CircularArrayQueue
     /**
         Constructs an empty queue.
     */
+    public CircularArrayQueue(){
+        final int INITIAL_SIZE = 5;
+        this.elements = new Object[INITIAL_SIZE]; 
+        this.head = 0;
+        this.tail = 0;
+        currentSize = 0; 
+    }
 
 
 
@@ -23,7 +33,9 @@ public class CircularArrayQueue
         Checks whether this queue is empty.
         @return true if this queue is empty
     */
-
+    public boolean empty() {
+        return this.currentSize == 0;
+    }
 
 
 
@@ -31,6 +43,13 @@ public class CircularArrayQueue
         Adds an element to the tail of this queue.
         @param newElement the element to add
     */
+    public void add(Object element){
+        growIfNecessary();
+        this.currentSize++;
+        this.elements[this.tail] = element;
+        this.tail++;
+        this.tail %= this.elements.length;
+    }
 
 
 
@@ -40,6 +59,16 @@ public class CircularArrayQueue
         Removes an element from the head of this queue.
         @return the removed element
     */
+    public Object remove(){
+        if(this.empty())
+            throw new NoSuchElementException();
+        
+        this.currentSize--;
+        Object element = this.elements[this.head];
+        this.head = (this.head + 1) % this.elements.length;
+
+        return element;
+    }
 
 
 
@@ -50,7 +79,7 @@ public class CircularArrayQueue
     */
     private void growIfNecessary()
     {
-        /*
+        
         if(this.currentSize == this.elements.length)
         {
             Object[] newElements = new Object[2 * this.elements.length];
@@ -62,7 +91,7 @@ public class CircularArrayQueue
             this.head = 0;
             this.tail = this.currentSize;
         }
-        */
+        
     }
 
 
