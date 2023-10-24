@@ -23,7 +23,7 @@ public class LinkedListQueue
     */
     public void firstToLast()
     {
-        add(head);
+        add(head.data);
         remove();
     }
 
