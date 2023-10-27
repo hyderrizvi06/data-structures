@@ -20,7 +20,7 @@ public class PriorityQueueDemo
         toDo.add(new WorkOrder(20, "Feed Son"));
         toDo.add(new WorkOrder(2, "Walk Dog"));
         toDo.add(new WorkOrder(9, "Go to Work"));
-        toDo.add(new WorkOrder(1, "Read jjk238"));
+        toDo.add(new WorkOrder(1, "Read work updates"));
         
         System.out.println(toDo); // Prints in priority order
 
