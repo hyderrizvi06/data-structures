@@ -1,7 +1,4 @@
-import java.util.TreeMap;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class MorseCode
 {
@@ -74,6 +71,8 @@ public class MorseCode
         /*
             !!! INSERT CODE HERE
         */
+        codeMap.put(letter, code);
+        treeInsert(letter, code);
     }
 
     /**
@@ -85,9 +84,51 @@ public class MorseCode
      */
     private static void treeInsert(char letter, String code)
     {
+        treeInsert(letter, code, decodeTree);
+    }
+
+    private static void treeInsert(char letter, String code, TreeNode current)
+    {
         /*
             !!! INSERT CODE HERE
         */
+        TreeNode leaf = new TreeNode(letter);
+        TreeNode path = new TreeNode(code.charAt(0));
+
+        //While there is more than one charater left, it will check whether left/right is occupied or not. If not, it puts the correct node there
+        //If it is, it moves to that node until it reaches the node right before the leaf
+        if(code.length() > 1){
+            if(code.charAt(0) == DOT){
+                if(current.getLeft() == null){
+                    current.setLeft(path);
+                }
+                
+                treeInsert(letter, code.substring(1), current.getLeft());
+                return;
+            }
+            if(code.charAt(0) == DASH){
+                if(current.getRight() == null){
+                    current.setRight(path);
+                }
+                
+                treeInsert(letter, code.substring(1), current.getRight());
+                return;
+            }
+        }
+        
+        //Puts the leaf in place of the final node.
+        if(code.charAt(0) == DOT){
+            if(current.getLeft() == null){
+                current.setLeft(leaf);
+            }
+        }
+
+        if(code.charAt(0) == DASH){
+            if(current.getRight() == null){
+                current.setRight(leaf);
+            }
+        }
+
     }
 
     /**
@@ -99,10 +140,22 @@ public class MorseCode
     public static String encode(String text)
     {
         StringBuffer morse = new StringBuffer(400);
-
+        text.toUpperCase();
         /*
             !!! INSERT CODE HERE
         */
+        Scanner scan = new Scanner(text);
+        //Checks through text, and creates a variable for each word
+        while(scan.hasNext()){
+            String word = scan.next();
+            //Appends code for each letter
+            while(word.length() > 0){
+                char letter = word.charAt(0);
+                String code = codeMap.get(letter);
+                morse.append(code + " ");
+                word = word.substring(1);
+            }
+        }
 
         return morse.toString();
     }
@@ -116,10 +169,35 @@ public class MorseCode
     public static String decode(String morse)
     {
         StringBuffer text = new StringBuffer(100);
+        TreeNode current = new TreeNode(null);
+        current = decodeTree;
+        Scanner scan = new Scanner(morse);
+        //Checks through text, and creates a variable for each code
+        while(scan.hasNext()){
+            String code = scan.next();
+            char letter;
+            //Appends code for each letter
+            while(code.length() > 1){
+                char c = code.charAt(0);
+                
+                if(c == DOT){
+                    current = current.getLeft();
+                }
+                else if(c == DASH){
+                    current = current.getRight();
+                }
 
-        /*
-            !!! INSERT CODE HERE
-        */
+                code = code.substring(1);
+            }
+            char c = code.charAt(0);
+            
+            if(c == DOT){
+                letter = current.getLeft().getValue();
+            }
+            else if(c == DASH){
+                current = current.getRight();
+            }
+        }
 
         return text.toString();
     }
