@@ -169,17 +169,18 @@ public class MorseCode
     public static String decode(String morse)
     {
         StringBuffer text = new StringBuffer(100);
-        TreeNode current = new TreeNode(null);
-        current = decodeTree;
+        TreeNode current = decodeTree;
         Scanner scan = new Scanner(morse);
         //Checks through text, and creates a variable for each code
         while(scan.hasNext()){
+            current = decodeTree;
             String code = scan.next();
+            System.out.println("1: "+code);
             char letter;
-            //Appends code for each letter
+            //Locates the node containing the correct 
             while(code.length() > 1){
                 char c = code.charAt(0);
-                
+                System.out.println("2: "+c+" "+code.length());
                 if(c == DOT){
                     current = current.getLeft();
                 }
@@ -188,17 +189,22 @@ public class MorseCode
                 }
 
                 code = code.substring(1);
+                System.out.println("3: "+code+"\n");
             }
             char c = code.charAt(0);
             
             if(c == DOT){
                 letter = current.getLeft().getValue();
             }
-            else if(c == DASH){
-                current = current.getRight();
+            else{
+                letter = current.getRight().getValue();
             }
+            
+            text.append(letter);
+            System.out.println("LETTER: "+letter);
+            System.out.println("4: "+text);
         }
-
+        System.out.println("5: "+text);
         return text.toString();
     }
 }
