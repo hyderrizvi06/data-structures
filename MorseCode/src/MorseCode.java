@@ -72,7 +72,7 @@ public class MorseCode
             !!! INSERT CODE HERE
         */
         codeMap.put(letter, code);
-        treeInsert(letter, code);
+        treeInsert(letter, code, decodeTree);
     }
 
     /**
@@ -81,11 +81,12 @@ public class MorseCode
      * in the tree from the root to a node: at a "dot" go left, at a "dash" go
      * right.  The node at the end of the path holds the symbol
      * for that code string.
-     */
+     
     private static void treeInsert(char letter, String code)
     {
-        treeInsert(letter, code, decodeTree);
+        treeInsert(letter, code);
     }
+    */
 
     private static void treeInsert(char letter, String code, TreeNode current)
     {
@@ -114,19 +115,48 @@ public class MorseCode
                 treeInsert(letter, code.substring(1), current.getRight());
                 return;
             }
+            return;
         }
         
         //Puts the leaf in place of the final node.
+
+        /*
+         * NEED TO DO:
+         * 
+         * MAKE SURE LEAF POINTS TO THE NODES THAT THE CURRENT BEFORE IT POINTED TO!
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
         if(code.charAt(0) == DOT){
-            if(current.getLeft() == null){
+            //if(current.getLeft() == null){
+                TreeNode tempRight = current.getLeft().getRight();
+                TreeNode tempLeft = current.getLeft().getLeft();
                 current.setLeft(leaf);
-            }
+                leaf.setLeft(tempLeft);
+                leaf.setRight(tempRight);
+            //}
+            return;
         }
 
         if(code.charAt(0) == DASH){
-            if(current.getRight() == null){
+            //if(current.getRight() == null){
+                TreeNode tempRight = current.getRight().getRight();
+                TreeNode tempLeft = current.getRight().getLeft();
                 current.setRight(leaf);
-            }
+                leaf.setLeft(tempLeft);
+                leaf.setRight(tempRight);
+            //}
+            return;
         }
 
     }
@@ -140,7 +170,7 @@ public class MorseCode
     public static String encode(String text)
     {
         StringBuffer morse = new StringBuffer(400);
-        text.toUpperCase();
+        text = text.toUpperCase();
         /*
             !!! INSERT CODE HERE
         */
