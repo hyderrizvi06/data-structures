@@ -119,43 +119,29 @@ public class MorseCode
         }
         
         //Puts the leaf in place of the final node.
-
-        /*
-         * NEED TO DO:
-         * 
-         * MAKE SURE LEAF POINTS TO THE NODES THAT THE CURRENT BEFORE IT POINTED TO!
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         */
         if(code.charAt(0) == DOT){
-            //if(current.getLeft() == null){
-                TreeNode tempRight = current.getLeft().getRight();
-                TreeNode tempLeft = current.getLeft().getLeft();
-                current.setLeft(leaf);
-                leaf.setLeft(tempLeft);
-                leaf.setRight(tempRight);
-            //}
+            if(current.getLeft() != null){
+                if(current.getLeft().getRight() != null){
+                    leaf.setRight(current.getLeft().getRight());
+                }
+                if(current.getLeft().getLeft() != null){
+                    leaf.setLeft(current.getLeft().getLeft());
+                }
+            }
+            current.setLeft(leaf);
             return;
         }
 
         if(code.charAt(0) == DASH){
-            //if(current.getRight() == null){
-                TreeNode tempRight = current.getRight().getRight();
-                TreeNode tempLeft = current.getRight().getLeft();
-                current.setRight(leaf);
-                leaf.setLeft(tempLeft);
-                leaf.setRight(tempRight);
-            //}
+            if(current.getRight() != null){
+                if(current.getRight().getRight() != null){
+                    leaf.setRight(current.getRight().getRight());
+                }
+                if(current.getRight().getLeft() != null){
+                    leaf.setLeft(current.getRight().getLeft());
+                }
+            }
+            current.setRight(leaf);
             return;
         }
 
@@ -185,8 +171,9 @@ public class MorseCode
                 morse.append(code + " ");
                 word = word.substring(1);
             }
+            morse.append("_ ");
         }
-
+        scan.close();
         return morse.toString();
     }
 
@@ -205,6 +192,10 @@ public class MorseCode
         while(scan.hasNext()){
             current = decodeTree;
             String code = scan.next();
+            if(code.equals("_")){
+                text.append(" ");
+            }
+            else{
             System.out.println("1: "+code);
             char letter;
             //Locates the node containing the correct 
@@ -233,8 +224,10 @@ public class MorseCode
             text.append(letter);
             System.out.println("LETTER: "+letter);
             System.out.println("4: "+text);
+            }
         }
         System.out.println("5: "+text);
+        scan.close();
         return text.toString();
     }
 }
