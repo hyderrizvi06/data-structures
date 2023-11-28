@@ -1,19 +1,19 @@
 public class TreeNode
 {
-  private char value;
+  private Object value;
   private TreeNode left;
   private TreeNode right;
 
   // Constructors:
 
-  public TreeNode(char initValue)
+  public TreeNode(Object initValue)
   {
     value = initValue;
     left = null;
     right = null;
   }
 
-  public TreeNode(char initValue, TreeNode initLeft, TreeNode initRight)
+  public TreeNode(Object initValue, TreeNode initLeft, TreeNode initRight)
   {
     value = initValue;
     left = initLeft;
@@ -22,10 +22,10 @@ public class TreeNode
 
   // Methods:
 
-  public char getValue() { return value; }
+  public Object getValue() { return value; }
   public TreeNode getLeft() { return left; }
   public TreeNode getRight() { return right; }
-  public void setValue(char theNewValue) { value = theNewValue; }
+  public void setValue(Object theNewValue) { value = theNewValue; }
   public void setLeft(TreeNode theNewLeft) { left = theNewLeft; }
   public void setRight(TreeNode theNewRight) { right = theNewRight; }
 }

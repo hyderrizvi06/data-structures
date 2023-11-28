@@ -72,7 +72,7 @@ public class MorseCode
             !!! INSERT CODE HERE
         */
         codeMap.put(letter, code);
-        treeInsert(letter, code, decodeTree);
+        treeInsert(letter, code);
     }
 
     /**
@@ -81,12 +81,12 @@ public class MorseCode
      * in the tree from the root to a node: at a "dot" go left, at a "dash" go
      * right.  The node at the end of the path holds the symbol
      * for that code string.
-     
+    */ 
     private static void treeInsert(char letter, String code)
     {
-        treeInsert(letter, code);
+        treeInsert(letter, code, decodeTree);
     }
-    */
+    
 
     private static void treeInsert(char letter, String code, TreeNode current)
     {
@@ -215,10 +215,10 @@ public class MorseCode
             char c = code.charAt(0);
             
             if(c == DOT){
-                letter = current.getLeft().getValue();
+                letter = current.getLeft().getValue().toString().charAt(0);
             }
             else{
-                letter = current.getRight().getValue();
+                letter = current.getRight().getValue().toString().charAt(0);
             }
             
             text.append(letter);
